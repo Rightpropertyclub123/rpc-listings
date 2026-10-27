@@ -1,0 +1,39 @@
+{
+  "id": "RPC-SR-000",
+  "sample": true,
+  "status": "Available",
+  "deal": "For Sale",
+  "title": "3 BHK Independent Floor",
+  "type": "Independent floor",
+  "locality": "Sector 48, Sohna Road",
+  "city": "Gurugram",
+  "landmark": "Near a main sector road",
+  "price": 18500000,
+  "price_note": "Negotiable",
+  "headline": "Sample listing to show the page layout. Not a real property.",
+  "overview": [
+    ["Configuration", "3 BHK"],
+    ["Built-up area", "1,800 sq ft"],
+    ["Plot size", "180 sq yd"],
+    ["Floor", "2nd of 4"],
+    ["Facing", "East"],
+    ["Property age", "Under 5 years"]
+  ],
+  "interior": [
+    ["Furnishing", "Semi-furnished"],
+    ["Parking", "1 covered car park"],
+    ["Possession", "Ready to move"],
+    ["Lift", "Yes"]
+  ],
+  "location": [
+    ["Access", "Short drive to Sohna Road"],
+    ["Neighbourhood", "Residential sector with parks"]
+  ],
+  "amenities": ["Power backup", "Lift", "Covered parking", "Park facing", "Gated street"],
+  "description": "This is a sample listing created to preview how Right Property Club listing pages look. Every detail on this page is illustrative. Real listings are published only after the owner or developer gives written permission and the details are checked.",
+  "video": "",
+  "map_link": "",
+  "rera": "",
+  "verified_on": "2026-10-26",
+  "photos": ["photo-1.jpg", "photo-2.jpg", "photo-3.jpg"]
+}
