@@ -20,6 +20,8 @@ main{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)
 .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .track::-webkit-scrollbar{display:none}
 .track img{flex:0 0 100%;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:center;background:var(--gold-soft)}
+.gal.portrait .track img{aspect-ratio:4/5;max-height:72vh;object-fit:cover}
+.gal.portrait + .head{margin-top:12px}.gal.portrait .count{left:auto;right:14px;bottom:14px}
 .count{position:absolute;left:14px;bottom:30px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:3px 9px;border-radius:999px}
 @media (min-width:760px){.gal{margin:16px 0 0}.track{border-radius:12px}}
 .head{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:-18px;position:relative;display:grid;gap:8px}
@@ -54,9 +56,16 @@ h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute
 .card .b{padding:14px;display:grid;gap:6px}
 .card h3{font-family:var(--f-display);font-weight:400;font-size:21px;margin:0}
 .hero{padding:26px 0 6px;display:grid;gap:8px}.hero p{color:var(--muted);max-width:60ch;margin:0}
+.plotfig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}.plotfig svg{width:100%;height:auto;display:block}.plotfig figcaption{font-size:12px;color:var(--muted);padding:4px 6px 0}
+.vid{width:100%;max-height:70vh;border-radius:10px;background:#000}
+.why{margin-top:8px}.why h3{font-size:16px;margin:18px 0 8px}
+.ticks,.growth,.check{margin:0;padding-left:0;list-style:none;display:grid;gap:8px}
+.ticks li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px 10px 34px;position:relative}.ticks li::before{content:"✓";position:absolute;left:12px;color:var(--ok);font-weight:700}
+.growth li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}.src{font-size:12px;color:var(--muted)}
+.check{counter-reset:c}.check li{counter-increment:c;padding-left:30px;position:relative}.check li::before{content:counter(c);position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--gold-soft);font-size:12px;text-align:center;line-height:20px;font-weight:600}
 :focus-visible{outline:2px solid #D8B777;outline-offset:2px}
 </style></head><body>
 <header class="top"><div class="in"><a class="logo" href="/">RIGHT PROPERTY <span>CLUB</span></a><small>Find the Right Property. The Right Way.</small></div></header><main><section class="hero"><div class="eyebrow">Verified listings</div><h1>That listing is not available</h1>
 <p>We list a property only after the owner or developer authorises us and we have checked its details.</p>
 <div class="links"><a class="btn gold" href="https://wa.me/919310884844?text=Hi%20Right%20Property%20Club%2C%20I%20am%20looking%20for%20a%20property.%20My%20requirement%3A%20" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2Z"/></svg> Share your requirement</a></div></section>
-<div class="cards"><p class="lead">New verified listings are on the way.</p></div><div class="fine"><p>Call or WhatsApp: <a href="tel:+919310884844">+91 93108 84844</a></p><p>Details are shared by the property owner or developer and can change. Please verify documents, approvals and price independently before you decide. Images may be indicative.</p></div></main></body></html>
+<div class="cards"><a class="card" href="/p/100-sq-yd-plot-bhomsingh-enclave-bhondsi/"><img src="/p/100-sq-yd-plot-bhomsingh-enclave-bhondsi/1.jpg" alt="" loading="lazy"><div class="b"><div class="chips"><span class="chip">Residential plot</span></div><h3>100 sq yd Plot, Bhomsingh Enclave</h3><div class="eyebrow">Bhomsingh Enclave, Bhondsi, Gurugram</div><div class="price" style="font-size:24px">Price on request</div></div></a></div><div class="fine"><p>Call or WhatsApp: <a href="tel:+919310884844">+91 93108 84844</a></p><p>Details are shared by the property owner or developer and can change. Please verify documents, approvals and price independently before you decide. Images may be indicative.</p></div></main></body></html>
