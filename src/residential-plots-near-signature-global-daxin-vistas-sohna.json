@@ -1,0 +1,75 @@
+{
+  "id": "RPC-PL-002",
+  "status": "Available",
+  "deal": "For Sale",
+  "portrait": true,
+  "title": "Residential Plots, 75–300 sq yd",
+  "page_title": "Residential Plots for Sale near Signature Global Daxin Vistas, Sohna",
+  "type": "Residential plots",
+  "locality": "Near Signature Global Daxin Vistas, Sohna",
+  "city": "Gurugram",
+  "landmark": "New residential plotting",
+  "price": null,
+  "verified_on": "2026-11-09",
+  "description": "A new residential plotting next to Signature Global's Daxin Vistas township in Sohna, Gurugram. Plots are available from 75 sq yd to 300 sq yd, so you can pick a size that fits your budget and the home you want to build. The colony is served by a 22 ft wide road, and registry is on GPA. Message Right Property Club on WhatsApp for prices, available plot numbers and a site visit.",
+  "sections": [
+    [
+      "Plot details",
+      [
+        [
+          "Plot sizes",
+          "75 to 300 sq yd"
+        ],
+        [
+          "Project type",
+          "New residential plotting"
+        ],
+        [
+          "Road",
+          "22 ft wide colony road"
+        ],
+        [
+          "Registry",
+          "GPA"
+        ]
+      ]
+    ]
+  ],
+  "why": {
+    "benefits": [
+      "Flexible sizes from 75 to 300 sq yd, from a compact first home to a larger independent house",
+      "New plotting, so you can choose your plot location within the colony",
+      "22 ft wide colony road for easy car access",
+      "Located next to a large branded township that is under construction"
+    ],
+    "location": [
+      "Sohna, on the southern side of Gurugram along the Gurugram–Sohna road",
+      "Next to Signature Global's Daxin Vistas, a 125-acre integrated township",
+      "Daxin Vistas is placed next to the Delhi–Mumbai Industrial Corridor (DMIC), as reported in the news"
+    ],
+    "growth": [
+      {
+        "status": "Under construction",
+        "text": "Signature Global awarded ₹567.37 crore of construction contracts in February 2025 for Daxin Vistas, including 2,792 independent floors and the township's sewage, drainage and rainwater systems.",
+        "src": "https://www.nbmcw.com/news/signature-global-awards-rs567-37-crore-contracts-for-daxin-vistas-in-sohna.html"
+      },
+      {
+        "status": "Operational",
+        "text": "Sohna Elevated Corridor: a 21.65 km route from Rajiv Chowk, Gurugram to Sohna, fully open to traffic since 11 July 2022.",
+        "src": "https://en.wikipedia.org/wiki/Sohna_Elevated_Corridor"
+      }
+    ]
+  },
+  "photos": [
+    "cover.jpg",
+    "still-v3-2.jpg",
+    "still-v3-12.jpg"
+  ],
+  "gallery_count": 1,
+  "video_src": {
+    "src": "walkthrough.mp4",
+    "poster_at": 12
+  },
+  "map_link": "https://www.google.com/maps/search/Signature+Global+Daxin+Vistas+Sohna",
+  "map_indicative": true
+}
