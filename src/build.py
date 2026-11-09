@@ -192,6 +192,7 @@ h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute
 .concept{margin:12px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}.concept img{width:100%;height:auto;max-height:80vh;object-fit:cover}.concept figcaption{padding:10px 12px;font-size:13px;color:var(--muted)}.concept b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
 @media (min-width:760px){.gal.portrait{max-width:520px;margin-left:auto;margin-right:auto}.concept{max-width:520px}}
 .plotfig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}.plotfig svg{width:100%;height:auto;display:block}.plotfig figcaption{font-size:12px;color:var(--muted);padding:4px 6px 0}
+.sitephoto{width:100%;height:auto;border-radius:10px;margin-bottom:12px;display:block}@media (min-width:760px){.sitephoto,.vid{max-width:520px}}
 .vid{width:100%;max-height:70vh;border-radius:10px;background:#000}
 .why{margin-top:8px}.why h3{font-size:16px;margin:18px 0 8px}
 .ticks,.growth,.check{margin:0;padding-left:0;list-style:none;display:grid;gap:8px}
@@ -252,10 +253,13 @@ def plot_layout(L):
     return h
 
 
-def video_block(L):
-    if not L.get("video_file"):
+def video_block(L, extra=()):
+    if not L.get("video_file") and not extra:
         return ""
-    return f'<h2>Video walkthrough</h2><video class="vid" src="{e(L["video_file"])}" controls playsinline preload="metadata" poster="{e(L.get("video_poster",""))}"></video>'
+    imgs = "".join(f'<img class="sitephoto" src="{e(p)}" alt="Site photo {i}" loading="lazy">' for i, p in enumerate(extra, 1))
+    if not L.get("video_file"):
+        return '<h2>Site photos</h2>' + imgs
+    return '<h2>Video walkthrough</h2>' + imgs + f'<video class="vid" src="{e(L["video_file"])}" controls playsinline preload="metadata" poster="{e(L.get("video_poster",""))}"></video>'
 
 
 def why_block(L):
@@ -285,7 +289,9 @@ def listing_page(site, slug, L, photos):
     enquire = wa(site["whatsapp"], f'Hi Right Property Club, I am interested in {L["title"]}, {place} ({L["id"]}).' + (' Please share the price and details.' if not L.get("price") else '') + f' {url}')
     share_text = f'{L["title"]} in {place} – {price}.\nView all photos & details: {url}'
     desc = f'{price} · {place}. ' + (L.get("headline") or "")
-    gal = "".join(f'<img src="{p}" alt="{e(L["title"])} photo {i}" {"" if i == 1 else "loading=lazy"} width="1600" height="1200">' for i, p in enumerate(photos, 1))
+    gphotos = photos[:L["gallery_count"]] if L.get("gallery_count") else photos
+    extra = photos[len(gphotos):]
+    gal = "".join(f'<img src="{p}" alt="{e(L["title"])} photo {i}" {"" if i == 1 else "loading=lazy"} width="1600" height="1200">' for i, p in enumerate(gphotos, 1))
     verified = fmt_date(L.get("verified_on", ""))
     links = []
     if L.get("video"):
@@ -316,7 +322,7 @@ def listing_page(site, slug, L, photos):
 {header(site)}
 <main>{banner}
 {f'<div class="checked"><span>✓</span> Checked by Right Property Club</div>' if verified and not L.get('sample') else ''}
-<div class="gal{' portrait' if L.get('portrait') else ''}"><div class="track">{gal}</div>{f'<span class="count">{len(photos)} photos · swipe</span>' if len(photos) > 1 else ''}</div>
+<div class="gal{' portrait' if L.get('portrait') else ''}"><div class="track">{gal}</div>{f'<span class="count">{len(gphotos)} photos · swipe</span>' if len(gphotos) > 1 else ''}</div>
 {f'<p class="fine" style="text-align:center">{e(L["media_note"])}</p>' if L.get('media_note') else ''}
 <section class="head"><div class="eyebrow">📍 {e(L.get('landmark') + ' · ' if L.get('landmark') else '')}{e(place)}</div>
 <h1>{e(title)}</h1>
@@ -332,7 +338,7 @@ def listing_page(site, slug, L, photos):
 {plot_layout(L)}
 {why_block(L)}
 {'<h2>Amenities</h2><div class="tags">' + ''.join(f'<span>{e(a)}</span>' for a in L['amenities']) + '</div>' if L.get('amenities') else ''}
-{video_block(L)}
+{video_block(L, extra)}
 {('<h2>Location map</h2><div class="links">' + ''.join(links) + '</div>') if links else ''}
 {'<p class="fine">Map shows the general area only. The exact location is shared on request or during a site visit.</p>' if L.get('map_indicative') else ('' if L.get('map_link') else '<p class="fine">Exact location is shared on request or during a site visit.</p>')}
 <div class="fine">{f"<p>HARERA project registration: {e(L['rera'])}</p>" if L.get('rera') else ''}<p>{e(site['disclaimer'])}</p>{f"<p>HARERA agent registration: {e(site['agent_rera'])}</p>" if site.get('agent_rera') else ''}{f'<p>Call or WhatsApp: {e(site["phone_display"])}</p>' if site.get('phone_display') else ''}<p>Listing ID {e(L['id'])}</p></div>

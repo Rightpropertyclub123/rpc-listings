@@ -46,14 +46,6 @@
       ]
     ]
   ],
-  "plot": {
-    "length_ft": 50,
-    "breadth_ft": 18,
-    "area_label": "100 sq yd",
-    "road_side": "bottom",
-    "road_label": "20 ft wide colony lane",
-    "note": ""
-  },
   "why": {
     "benefits": [
       "Compact 100 sq yd size keeps the entry budget lower than larger plots in the area",
@@ -85,7 +77,7 @@
   "description": "This 100 sq yd plot sits inside Bhomsingh Enclave in Bhondsi, near the Sohna toll. It measures 50 ft by 18 ft, opens onto a 20 ft wide colony lane and has boundary walls on its sides. The lane already has built homes around it. Registry is available. Message Right Property Club on WhatsApp for the price, documents and a site visit.",
   "photos": [
     "cover.jpg",
-    "plot-clean.jpg"
+    "photo-1.jpg"
   ],
   "video_src": {
     "src": "walkthrough.mp4",
@@ -102,11 +94,5 @@
   "page_title": "100 sq yd Plot for Sale in Bhomsingh Enclave, Bhondsi",
   "map_link": "https://www.google.com/maps/@28.350,77.070,15z",
   "map_indicative": true,
-  "media_note": "Cover and home design are representative images. The plot photo has been digitally tidied for presentation.",
-  "concept_src": "concept-home.jpg",
-  "concept": {
-    "title": "What you could build here",
-    "caption": "Indicative 3D concept of a ground + 2 home with stilt parking on an 18 ft × 50 ft plot. Actual design depends on approved building plans and local bye-laws.",
-    "alt": "Indicative 3D design of a three-storey home on an 18 ft wide plot"
-  }
+  "gallery_count": 1
 }
