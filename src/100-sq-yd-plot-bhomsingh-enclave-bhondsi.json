@@ -1,0 +1,117 @@
+{
+  "id": "RPC-PL-001",
+  "status": "Available",
+  "deal": "For Sale",
+  "portrait": true,
+  "title": "100 sq yd Plot, Bhomsingh Enclave",
+  "type": "Residential plot",
+  "locality": "Bhomsingh Enclave, Bhondsi",
+  "city": "Gurugram",
+  "landmark": "Near Sohna toll",
+  "price": null,
+  "size_sqyd": 100,
+  "headline": "A compact 50 × 18 ft plot in a settled residential pocket of Bhondsi, Gurugram, with registry available.",
+  "sections": [
+    [
+      "Plot details",
+      [
+        [
+          "Plot size",
+          "100 sq yd (900 sq ft · 83.6 sq m)"
+        ],
+        [
+          "Dimensions",
+          "50 ft × 18 ft"
+        ],
+        [
+          "Shape",
+          "Rectangular"
+        ],
+        [
+          "Boundary",
+          "Walls on the sides"
+        ],
+        [
+          "Access",
+          "Through a colony lane"
+        ]
+      ]
+    ],
+    [
+      "Legal & documents",
+      [
+        [
+          "Registry",
+          "Available"
+        ],
+        [
+          "RERA",
+          "Not applicable for an individual resale plot"
+        ]
+      ]
+    ]
+  ],
+  "plot": {
+    "length_ft": 50,
+    "breadth_ft": 18,
+    "area_label": "100 sq yd",
+    "road_side": "bottom",
+    "road_label": "Colony lane (indicative)",
+    "note": "Road side is indicative."
+  },
+  "why": {
+    "benefits": [
+      "Compact 100 sq yd size keeps the entry budget lower than larger plots in the area",
+      "Simple rectangular 50 × 18 ft shape, easy to plan a home on",
+      "Side boundary walls already in place (as seen in photos)",
+      "Settled pocket with existing homes all around, not an isolated patch",
+      "Registry available, so the sale deed can be registered in the buyer’s name"
+    ],
+    "location": [
+      "Bhondsi lies along the Gurugram–Sohna road belt, south of Gurugram city",
+      "Sector 55–56 Rapid Metro station about 12 km away (approx.)",
+      "Gurugram railway station about 16 km and IGI Airport about 27 km away (approx.)",
+      "Schools, colleges and hospitals within the wider Bhondsi–Sohna Road area"
+    ],
+    "growth": [
+      {
+        "status": "Operational",
+        "text": "Sohna Elevated Corridor: a 21.65 km route from Rajiv Chowk, Gurugram to Sohna, fully open to traffic since 11 July 2022.",
+        "src": "https://en.wikipedia.org/wiki/Sohna_Elevated_Corridor"
+      },
+      {
+        "status": "Approved",
+        "text": "A six-lane elevated corridor at the NH-919 and NH-248A intersection further south in Nuh district has been approved to ease the Sohna route.",
+        "src": "https://swarajyamag.com/news-brief/six-lane-elevated-corridor-worth-34078-crore-approved-for-nh-919-and-nh-248a-intersection-in-nuh"
+      }
+    ],
+    "checklist": [
+      "Check the colony’s approval status and whether a DTCP NOC is needed for registry under Section 7A of the Haryana urban areas Act.",
+      "Check the previous sale deed and land records (jamabandi and mutation) in the seller's name.",
+      "Measure the plot on site (50 × 18 ft) and confirm the boundaries with neighbours.",
+      "Confirm the width and ownership of the access lane, and availability of water and electricity connections."
+    ]
+  },
+  "description": "This 100 sq yd plot sits inside Bhomsingh Enclave in Bhondsi, near the Sohna toll. It measures 50 ft by 18 ft, has boundary walls on its sides, and the lane around it already has built homes. Registry is available. Message Right Property Club on WhatsApp for the price, documents and a site visit.",
+  "photos": [
+    "cover.jpg",
+    "crop-1.jpg",
+    "crop-still-13.5.jpg",
+    "crop-still-20.5.jpg"
+  ],
+  "video_src": {
+    "src": "walkthrough.mp4",
+    "keep": [
+      [
+        10.5,
+        23
+      ]
+    ],
+    "poster_at": 3,
+    "crop_top": 0.8
+  },
+  "verified_on": "2026-11-09",
+  "page_title": "100 sq yd Plot for Sale in Bhomsingh Enclave, Bhondsi",
+  "map_link": "https://www.google.com/maps/@28.350,77.070,15z",
+  "map_indicative": true
+}

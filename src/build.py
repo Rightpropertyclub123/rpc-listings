@@ -59,7 +59,32 @@ def wa_share(text):
     return "https://wa.me/?text=" + urllib.parse.quote(text)
 
 
-def process_photos(slug, names, outdir, brand, watermark=True):
+def enhance(im, strength=1.0):
+    from PIL import ImageEnhance, ImageFilter
+    im = ImageOps.autocontrast(im, cutoff=(0.5, 0.5))
+    im = ImageEnhance.Brightness(im).enhance(1 + 0.04 * strength)
+    im = ImageEnhance.Color(im).enhance(1 + 0.08 * strength)
+    im = ImageEnhance.Contrast(im).enhance(1 + 0.05 * strength)
+    return im.filter(ImageFilter.UnsharpMask(radius=1.6, percent=int(60 * strength), threshold=3))
+
+
+def process_video(slug, v, outdir):
+    import subprocess
+    src = os.path.join(ROOT, "photos", slug, v["src"])
+    if not os.path.exists(src):
+        return None
+    cuts = v.get("keep", [[0, 9999]])
+    parts = "".join(f"[0:v]trim={a}:{b},setpts=PTS-STARTPTS[v{i}];" for i, (a, b) in enumerate(cuts))
+    cat = "".join(f"[v{i}]" for i in range(len(cuts))) + f"concat=n={len(cuts)}:v=1:a=0[c];"
+    fx = ("[c]crop=iw:ih*" + str(v.get("crop_top", 1)) + ":0:0," if v.get("crop_top") else "[c]") + "eq=contrast=1.06:brightness=0.02:saturation=1.12,unsharp=5:5:0.6,format=yuv420p[o]"
+    out = os.path.join(outdir, "video.mp4")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-filter_complex", parts + cat + fx, "-map", "[o]", "-an",
+                    "-c:v", "libx264", "-preset", "veryfast", "-crf", "24", "-movflags", "+faststart", out], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(v.get("poster_at", 0)), "-i", out, "-frames:v", "1", os.path.join(outdir, "poster.jpg")], check=True)
+    return "video.mp4"
+
+
+def process_photos(slug, names, outdir, brand, watermark=True, do_enhance=True):
     src_dir = os.path.join(ROOT, "photos", slug)
     out = []
     for i, name in enumerate(names, 1):
@@ -69,7 +94,13 @@ def process_photos(slug, names, outdir, brand, watermark=True):
             continue
         im = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
         im.thumbnail((1600, 1600))
-        if watermark:
+        if do_enhance and not name.startswith("cover"):
+            im = enhance(im)
+        if name.startswith("cover"):
+            watermark_this = False
+        else:
+            watermark_this = watermark
+        if watermark_this:
             d = ImageDraw.Draw(im)
             fs = max(16, im.width // 38)
             f = font(FONT_BOLD, fs)
@@ -87,7 +118,7 @@ def process_photos(slug, names, outdir, brand, watermark=True):
 def og_image(cover_path, outpath, title, price, place, sample):
     W, H = 1200, 630
     if cover_path and os.path.exists(cover_path):
-        im = ImageOps.fit(Image.open(cover_path).convert("RGB"), (W, H))
+        im = ImageOps.fit(Image.open(cover_path).convert("RGB"), (W, H), centering=(0.5, 0.72))
     else:
         im = Image.new("RGB", (W, H), (30, 58, 46))
     band = Image.new("RGBA", (W, 210), (20, 38, 30, 235))
@@ -121,6 +152,8 @@ main{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)
 .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .track::-webkit-scrollbar{display:none}
 .track img{flex:0 0 100%;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:center;background:var(--gold-soft)}
+.gal.portrait .track img{aspect-ratio:4/5;max-height:72vh;object-fit:cover}
+.gal.portrait + .head{margin-top:12px}.gal.portrait .count{left:auto;right:14px;bottom:14px}
 .count{position:absolute;left:14px;bottom:30px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:3px 9px;border-radius:999px}
 @media (min-width:760px){.gal{margin:16px 0 0}.track{border-radius:12px}}
 .head{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:-18px;position:relative;display:grid;gap:8px}
@@ -155,6 +188,13 @@ h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute
 .card .b{padding:14px;display:grid;gap:6px}
 .card h3{font-family:var(--f-display);font-weight:400;font-size:21px;margin:0}
 .hero{padding:26px 0 6px;display:grid;gap:8px}.hero p{color:var(--muted);max-width:60ch;margin:0}
+.plotfig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}.plotfig svg{width:100%;height:auto;display:block}.plotfig figcaption{font-size:12px;color:var(--muted);padding:4px 6px 0}
+.vid{width:100%;max-height:70vh;border-radius:10px;background:#000}
+.why{margin-top:8px}.why h3{font-size:16px;margin:18px 0 8px}
+.ticks,.growth,.check{margin:0;padding-left:0;list-style:none;display:grid;gap:8px}
+.ticks li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px 10px 34px;position:relative}.ticks li::before{content:"✓";position:absolute;left:12px;color:var(--ok);font-weight:700}
+.growth li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}.src{font-size:12px;color:var(--muted)}
+.check{counter-reset:c}.check li{counter-increment:c;padding-left:30px;position:relative}.check li::before{content:counter(c);position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--gold-soft);font-size:12px;text-align:center;line-height:20px;font-weight:600}
 :focus-visible{outline:2px solid #D8B777;outline-offset:2px}
 """
 
@@ -176,14 +216,64 @@ def dl(rows, wide=False):
         f'<div class="cell"><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in rows) + "</dl>"
 
 
+def plot_svg(L):
+    d = L.get("plot")
+    if not d:
+        return ""
+    W, H = 360, 260
+    lf, bf = float(d["length_ft"]), float(d["breadth_ft"])
+    k = min(240 / lf, 150 / bf)
+    pw, ph = lf * k, bf * k
+    x0, y0 = (W - pw) / 2, 40
+    road = d.get("road_side", "bottom")
+    rl = d.get("road_label", "Access road")
+    ry = y0 + ph + 26
+    return f"""<figure class="plotfig"><svg viewBox="0 0 {W} {H}" role="img" aria-label="Plot diagram {e(d['length_ft'])} by {e(d['breadth_ft'])} feet">
+<rect x="{x0}" y="{y0}" width="{pw}" height="{ph}" fill="var(--gold-soft)" stroke="var(--gold)" stroke-width="2"/>
+<text x="{W/2}" y="{y0+ph/2-4}" text-anchor="middle" font-size="16" font-weight="600" fill="var(--ink)">{e(d.get('area_label',''))}</text>
+<text x="{W/2}" y="{y0+ph/2+16}" text-anchor="middle" font-size="12" fill="var(--muted)">{e(d['length_ft'])} ft × {e(d['breadth_ft'])} ft</text>
+<line x1="{x0}" y1="{y0-14}" x2="{x0+pw}" y2="{y0-14}" stroke="var(--muted)"/><text x="{W/2}" y="{y0-20}" text-anchor="middle" font-size="12" fill="var(--muted)">{e(d['length_ft'])} ft</text>
+<line x1="{x0+pw+14}" y1="{y0}" x2="{x0+pw+14}" y2="{y0+ph}" stroke="var(--muted)"/><text x="{x0+pw+20}" y="{y0+ph/2+4}" font-size="12" fill="var(--muted)">{e(d['breadth_ft'])} ft</text>
+{f'<rect x="{x0-20}" y="{y0+ph+8}" width="{pw+40}" height="30" fill="var(--line)"/><text x="{W/2}" y="{ry+2}" text-anchor="middle" font-size="12" fill="var(--ink)">{e(rl)}</text>' if road=="bottom" else ''}
+</svg><figcaption>Indicative sketch from the stated dimensions. Not to scale for survey purposes.{(" " + e(d["note"])) if d.get("note") else ""}</figcaption></figure>"""
+
+
+def extra_top(L):
+    out = ""
+    if L.get("plot"):
+        out += "<h2>Plot layout</h2>" + plot_svg(L)
+    if L.get("video_file"):
+        out += f'<h2>Video walkthrough</h2><video class="vid" src="{e(L["video_file"])}" controls playsinline preload="metadata" poster="{e(L.get("video_poster",""))}"></video>'
+    return out
+
+
+def why_block(L):
+    w = L.get("why")
+    if not w:
+        return ""
+    h = '<section class="why"><h2>Why this property</h2>'
+    if w.get("benefits"):
+        h += '<ul class="ticks">' + "".join(f"<li>{e(x)}</li>" for x in w["benefits"]) + "</ul>"
+    if w.get("location"):
+        h += '<h3>Location advantages</h3><ul class="ticks">' + "".join(f"<li>{e(x)}</li>" for x in w["location"]) + "</ul>"
+    if w.get("growth"):
+        h += '<h3>Growth drivers nearby</h3><ul class="growth">' + "".join(
+            f'<li><span class="chip {"ok" if g.get("status","").lower().startswith("operational") else "warn"}">{e(g.get("status",""))}</span> {e(g["text"])}'
+            + (f' <a class="src" href="{e(g["src"])}" target="_blank" rel="noopener">Source</a>' if g.get("src") else "") + "</li>" for g in w["growth"]) + "</ul>"
+        h += '<p class="fine">Infrastructure helps a location but does not guarantee price growth. Right Property Club does not promise returns or appreciation.</p>'
+    if w.get("checklist"):
+        h += '<h3>Smart buyer checklist</h3><ol class="check">' + "".join(f"<li>{e(x)}</li>" for x in w["checklist"]) + "</ol>"
+    return h + "</section>"
+
+
 def listing_page(site, slug, L, photos):
     base = f'https://{site["domain"]}'
     url = f"{base}/p/{slug}/"
     price = inr(L.get("price"))
     place = ", ".join(x for x in [L.get("locality"), L.get("city")] if x)
-    title = f'{L["title"]} for Sale in {L.get("locality","")}'.strip() if L.get("deal", "For Sale") == "For Sale" else L["title"]
+    title = L.get("page_title") or f'{L["title"]} for Sale in {L.get("locality","")}'.strip() if L.get("deal", "For Sale") == "For Sale" else L["title"]
     sold = L.get("status") in ("Sold", "Withdrawn")
-    enquire = wa(site["whatsapp"], f'Hi Right Property Club, I am interested in {L["title"]}, {place} ({L["id"]}). {url}')
+    enquire = wa(site["whatsapp"], f'Hi Right Property Club, I am interested in {L["title"]}, {place} ({L["id"]}).' + (' Please share the price and details.' if not L.get("price") else '') + f' {url}')
     share_text = f'{L["title"]} in {place} – {price}.\nView all photos & details: {url}'
     desc = f'{price} · {place}. ' + (L.get("headline") or "")
     gal = "".join(f'<img src="{p}" alt="{e(L["title"])} photo {i}" {"" if i == 1 else "loading=lazy"} width="1600" height="1200">' for i, p in enumerate(photos, 1))
@@ -192,11 +282,14 @@ def listing_page(site, slug, L, photos):
     if L.get("video"):
         links.append(f'<a class="btn" href="{e(L["video"])}" target="_blank" rel="noopener">▶ Watch video tour</a>')
     if L.get("map_link"):
-        links.append(f'<a class="btn" href="{e(L["map_link"])}" target="_blank" rel="noopener">Open in Google Maps</a>')
+        links.append(f'<a class="btn" href="{e(L["map_link"])}" target="_blank" rel="noopener">{"View area on Google Maps" if L.get("map_indicative") else "Open in Google Maps"}</a>')
     noindex = '<meta name="robots" content="noindex">' if L.get("sample") else ""
     banner = ""
     if L.get("sample"):
         banner = '<div class="banner">Sample listing for layout preview. This is not a real property.</div>'
+    if L.get("draft"):
+        banner = '<div class="banner">DRAFT PREVIEW – not published. Items marked ⚠ need confirmation.</div>'
+        noindex = '<meta name="robots" content="noindex">'
     if sold:
         banner += f'<div class="banner sold">This property is no longer available ({e(L["status"]).lower()}). See our current listings on the home page.</div>'
     bar_btns = []
@@ -213,19 +306,24 @@ def listing_page(site, slug, L, photos):
 {FONTS}<style>{CSS}</style></head><body>
 {header(site)}
 <main>{banner}
-<div class="gal"><div class="track">{gal}</div>{f'<span class="count">{len(photos)} photos</span>' if photos else ''}</div>
+<div class="gal{' portrait' if L.get('portrait') else ''}"><div class="track">{gal}</div>{f'<span class="count">{len(photos)} photos</span>' if photos else ''}</div>
 <section class="head"><div class="eyebrow">📍 {e(L.get('landmark') + ' · ' if L.get('landmark') else '')}{e(place)}</div>
 <h1>{e(title)}</h1>
 <div class="chips"><span class="chip">{e(L.get('deal','For Sale'))}</span><span class="chip">{e(L.get('type',''))}</span>{f'<span class="chip ok">Verified {verified}</span>' if verified else ''}<span class="chip">{e(L['id'])}</span></div>
 <div class="price">{e(price)}{f"<small>{e(L['price_note'])}</small>" if L.get('price_note') and L.get('price') else ''}</div>
+{f'<div class="eyebrow">≈ ₹{int(L["price"]/L["size_sqyd"]):,} per sq yd</div>' if L.get('price') and L.get('size_sqyd') else ''}
+{f'<div class="links" style="margin-top:4px"><a class="btn gold" href="{e(enquire)}" target="_blank" rel="noopener">{WA_ICON} Get the price on WhatsApp</a></div>' if not L.get('price') and enquire and not sold else ''}
 {f'<p class="lead">{e(L["headline"])}</p>' if L.get('headline') else ''}</section>
+{''.join('<h2>' + e(h) + '</h2>' + dl(rows, wide=(len(rows) < 3)) for h, rows in L.get('sections', []))}
+{extra_top(L)}
 {'<h2>Property overview</h2>' + dl(L.get('overview', [])) if L.get('overview') else ''}
 {'<h2>Interior &amp; status</h2>' + dl(L.get('interior', [])) if L.get('interior') else ''}
 {'<h2>Location &amp; lifestyle</h2>' + dl(L.get('location', []), wide=True) if L.get('location') else ''}
+{why_block(L)}
 {'<h2>Amenities</h2><div class="tags">' + ''.join(f'<span>{e(a)}</span>' for a in L['amenities']) + '</div>' if L.get('amenities') else ''}
 {'<h2>About this property</h2><p class="desc">' + e(L['description']) + '</p>' if L.get('description') else ''}
 {'<div class="links">' + ''.join(links) + '</div>' if links else ''}
-{'' if L.get('map_link') else '<p class="fine">Exact location is shared on request or during a site visit.</p>'}
+{'<p class="fine">Map shows the general area only. The exact location is shared on request or during a site visit.</p>' if L.get('map_indicative') else ('' if L.get('map_link') else '<p class="fine">Exact location is shared on request or during a site visit.</p>')}
 {f'<div class="verify"><span>✓</span><div><b>Checked by Right Property Club on {verified}</b>We confirmed availability, asking price and our authorisation to market this property on this date.</div></div>' if verified and not L.get('sample') else ''}
 <div class="fine">{f"<p>HARERA project registration: {e(L['rera'])}</p>" if L.get('rera') else ''}<p>{e(site['disclaimer'])}</p>{f"<p>HARERA agent registration: {e(site['agent_rera'])}</p>" if site.get('agent_rera') else ''}{f'<p>Call or WhatsApp: {e(site["phone_display"])}</p>' if site.get('phone_display') else ''}<p>Listing ID {e(L['id'])}</p></div>
 </main>
@@ -273,8 +371,12 @@ def main():
         L = json.load(open(os.path.join(ldir, fn)))
         pdir = os.path.join(OUT, "p", slug)
         os.makedirs(pdir)
-        photos = process_photos(slug, L.get("photos", []), pdir, site["brand"], L.get("watermark", True))
-        og_image(os.path.join(pdir, photos[0]) if photos else None, os.path.join(pdir, "og.jpg"),
+        photos = process_photos(slug, L.get("photos", []), pdir, site["brand"], L.get("watermark", True), L.get("enhance", True))
+        if L.get("video_src"):
+            vf = process_video(slug, L["video_src"], pdir)
+            if vf:
+                L["video_file"], L["video_poster"] = vf, "poster.jpg"
+        og_image(os.path.join(pdir, photos[1] if (len(photos) > 1 and L.get("photos", [""])[0].startswith("cover")) else photos[0]) if photos else None, os.path.join(pdir, "og.jpg"),
                  L["title"], inr(L.get("price")), ", ".join(x for x in [L.get("locality"), L.get("city")] if x), L.get("sample"))
         open(os.path.join(pdir, "index.html"), "w").write(listing_page(site, slug, L, photos))
         url = f'https://{site["domain"]}/p/{slug}/'
@@ -282,7 +384,7 @@ def main():
                + "".join(f"• {v}\n" for k, v in (L.get("overview", [])[:3] + L.get("interior", [])[:2]) if v)
                + f'\n👉 View all photos & details:\n{url}\n\nReply here to book a site visit. – Right Property Club')
         open(os.path.join(ROOT, "share", slug + ".txt"), "w").write(msg)
-        live = L.get("status", "Available") == "Available" and (show_samples or not L.get("sample"))
+        live = L.get("status", "Available") == "Available" and not L.get("draft") and (show_samples or not L.get("sample"))
         if live:
             cards.append(card(slug, L, photos[0] if photos else ""))
         print(f"built /p/{slug}/  ({len(photos)} photos){'  [on home page]' if live else ''}")
