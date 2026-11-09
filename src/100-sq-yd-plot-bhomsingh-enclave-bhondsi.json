@@ -10,7 +10,7 @@
   "landmark": "Near Sohna toll",
   "price": null,
   "size_sqyd": 100,
-  "headline": "A compact 50 × 18 ft plot in a settled residential pocket of Bhondsi, Gurugram, with registry available.",
+  "headline": "",
   "sections": [
     [
       "Plot details",
@@ -28,18 +28,13 @@
           "Rectangular"
         ],
         [
+          "Road in front",
+          "20 ft wide colony lane"
+        ],
+        [
           "Boundary",
           "Walls on the sides"
         ],
-        [
-          "Access",
-          "Through a colony lane"
-        ]
-      ]
-    ],
-    [
-      "Legal & documents",
-      [
         [
           "Registry",
           "Available"
@@ -56,14 +51,15 @@
     "breadth_ft": 18,
     "area_label": "100 sq yd",
     "road_side": "bottom",
-    "road_label": "Colony lane (indicative)",
-    "note": "Road side is indicative."
+    "road_label": "20 ft wide colony lane",
+    "note": ""
   },
   "why": {
     "benefits": [
       "Compact 100 sq yd size keeps the entry budget lower than larger plots in the area",
       "Simple rectangular 50 × 18 ft shape, easy to plan a home on",
-      "Side boundary walls already in place (as seen in photos)",
+      "Faces a 20 ft wide colony lane, enough for a car to reach the gate",
+      "Side boundary walls already in place",
       "Settled pocket with existing homes all around, not an isolated patch",
       "Registry available, so the sale deed can be registered in the buyer’s name"
     ],
@@ -84,20 +80,12 @@
         "text": "A six-lane elevated corridor at the NH-919 and NH-248A intersection further south in Nuh district has been approved to ease the Sohna route.",
         "src": "https://swarajyamag.com/news-brief/six-lane-elevated-corridor-worth-34078-crore-approved-for-nh-919-and-nh-248a-intersection-in-nuh"
       }
-    ],
-    "checklist": [
-      "Check the colony’s approval status and whether a DTCP NOC is needed for registry under Section 7A of the Haryana urban areas Act.",
-      "Check the previous sale deed and land records (jamabandi and mutation) in the seller's name.",
-      "Measure the plot on site (50 × 18 ft) and confirm the boundaries with neighbours.",
-      "Confirm the width and ownership of the access lane, and availability of water and electricity connections."
     ]
   },
-  "description": "This 100 sq yd plot sits inside Bhomsingh Enclave in Bhondsi, near the Sohna toll. It measures 50 ft by 18 ft, has boundary walls on its sides, and the lane around it already has built homes. Registry is available. Message Right Property Club on WhatsApp for the price, documents and a site visit.",
+  "description": "This 100 sq yd plot sits inside Bhomsingh Enclave in Bhondsi, near the Sohna toll. It measures 50 ft by 18 ft, opens onto a 20 ft wide colony lane and has boundary walls on its sides. The lane already has built homes around it. Registry is available. Message Right Property Club on WhatsApp for the price, documents and a site visit.",
   "photos": [
     "cover.jpg",
-    "crop-1.jpg",
-    "crop-still-13.5.jpg",
-    "crop-still-20.5.jpg"
+    "plot-clean.jpg"
   ],
   "video_src": {
     "src": "walkthrough.mp4",
@@ -113,5 +101,12 @@
   "verified_on": "2026-11-09",
   "page_title": "100 sq yd Plot for Sale in Bhomsingh Enclave, Bhondsi",
   "map_link": "https://www.google.com/maps/@28.350,77.070,15z",
-  "map_indicative": true
+  "map_indicative": true,
+  "media_note": "Cover and home design are representative images. The plot photo has been digitally tidied for presentation.",
+  "concept_src": "concept-home.jpg",
+  "concept": {
+    "title": "What you could build here",
+    "caption": "Indicative 3D concept of a ground + 2 home with stilt parking on an 18 ft × 50 ft plot. Actual design depends on approved building plans and local bye-laws.",
+    "alt": "Indicative 3D design of a three-storey home on an 18 ft wide plot"
+  }
 }
