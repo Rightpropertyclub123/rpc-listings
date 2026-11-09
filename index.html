@@ -20,7 +20,7 @@ main{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)
 .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .track::-webkit-scrollbar{display:none}
 .track img{flex:0 0 100%;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:center;background:var(--gold-soft)}
-.gal.portrait .track img{aspect-ratio:4/5;max-height:72vh;object-fit:cover}
+.gal.portrait .track img{aspect-ratio:4/5;object-fit:cover}
 .gal.portrait + .head{margin-top:12px}.gal.portrait .count{left:auto;right:14px;bottom:14px}
 .count{position:absolute;left:14px;bottom:30px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:3px 9px;border-radius:999px}
 @media (min-width:760px){.gal{margin:16px 0 0}.track{border-radius:12px}}
@@ -56,6 +56,9 @@ h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute
 .card .b{padding:14px;display:grid;gap:6px}
 .card h3{font-family:var(--f-display);font-weight:400;font-size:21px;margin:0}
 .hero{padding:26px 0 6px;display:grid;gap:8px}.hero p{color:var(--muted);max-width:60ch;margin:0}
+.checked{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:#1E3A2E;color:#F5F1E7;border:1px solid #D8B777;border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px}.checked span{color:#D8B777}
+.concept{margin:12px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}.concept img{width:100%;height:auto;max-height:80vh;object-fit:cover}.concept figcaption{padding:10px 12px;font-size:13px;color:var(--muted)}.concept b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
+@media (min-width:760px){.gal.portrait{max-width:520px;margin-left:auto;margin-right:auto}.concept{max-width:520px}}
 .plotfig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}.plotfig svg{width:100%;height:auto;display:block}.plotfig figcaption{font-size:12px;color:var(--muted);padding:4px 6px 0}
 .vid{width:100%;max-height:70vh;border-radius:10px;background:#000}
 .why{margin-top:8px}.why h3{font-size:16px;margin:18px 0 8px}
