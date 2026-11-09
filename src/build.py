@@ -245,7 +245,7 @@ def index_page(site, cards):
 {header(site)}<main><section class="hero"><div class="eyebrow">Verified listings</div><h1>Find the Right Property. The Right Way.</h1>
 <p>We list a property only after the owner or developer authorises us and we have checked its details.</p>
 {f'<div class="links"><a class="btn gold" href="{e(ask)}" target="_blank" rel="noopener">{WA_ICON} Share your requirement</a></div>' if ask else ''}</section>
-<div class="cards">{body}</div><div class="fine"><p>{e(site['disclaimer'])}</p></div></main></body></html>"""
+<div class="cards">{body}</div><div class="fine"><p>Call or WhatsApp: <a href="tel:+{e(site['whatsapp'])}">{e(site['phone_display'])}</a></p><p>{e(site['disclaimer'])}</p></div></main></body></html>"""
 
 
 def card(slug, L, cover):
